@@ -2,7 +2,7 @@ defmodule SlapWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", SlapWeb.RoomChannel
+  channel "room:*", SlapWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
