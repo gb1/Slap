@@ -6,27 +6,60 @@ sap.ui.define([
 ], function (Controller, MessageToast, JSONModel) {
   "use strict";
   return Controller.extend("slap.controller.App", {
-     onInit : function () {
+     
+    chan : {},
+    
+    onInit : function () {
        
-      var socket = new Phoenix.Socket("/socket", {params: {userToken: "123"}})
+      var socket = new Phoenix.Socket("/socket", {params: {}})
       socket.connect()
 
       let channel = socket.channel("room:lobby", {})
+
+      this.chan = channel;
+
+      channel.on("new_msg", payload => {
+        console.log(payload.body);
+      })
+
       channel.join()
-        .receive("ok", resp => { console.log("Joined successfully", resp) })
+        .receive("ok", resp => { 
+          console.log("Joined successfully", resp)
+          channel.push("new_msg", {body: "boop!"})
+        })
         .receive("error", resp => { console.log("Unable to join", resp) })
-        
+
         // set data model on view
         var oData = {
-           recipient : {
-              name : "World"
-           }
+           messages : [
+              {
+              from : "Ched",
+              message: "yo!"
+           },
+          {
+            from : "Ched",
+            message: "hi"
+          }
+          ]
         };
         var oModel = new JSONModel(oData);
         this.getView().setModel(oModel);
      },
-     onShowHello : function () {
-        MessageToast.show("Hello World");
+
+     onPost : function() {
+       console.log("send");
+       this.chan.push("new_msg", {body: "send!"})
+     },
+
+     addMessageToModel : function() {
+      //  			// update model
+			// var oModel = this.getView().getModel();
+			// var aEntries = oModel.getData().EntryCollection;
+			// aEntries.unshift(oEntry);
+			// oModel.setData({
+			// 	EntryCollection : aEntries
+			// });
      }
+
   });
 });
