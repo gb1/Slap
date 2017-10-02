@@ -1,25 +1,8 @@
-<mvc:View
-   controllerName="slap.controller.App"
-   xmlns="sap.m"
-   xmlns:mvc="sap.ui.core.mvc">
-
-  <FeedInput
-		post="onPost"		
-		class="sapUiSmallMarginTopBottom" />
-
-  	<List
-		showSeparators="Inner"
-		items="{/messages}" >
-		<FeedListItem
-			sender="{Author}"
-			icon="{AuthorPicUrl}"
-			senderPress="onSenderPress"
-			iconPress="onIconPress"
-			iconDensityAware="false"
-			info="{Type}"
-			timestamp="{Date}"
-			text="{message}"
-			convertLinksToAnchorTags="All"/>
+<mvc:View controllerName="slap.controller.App" 
+	xmlns="sap.m" 
+	xmlns:mvc="sap.ui.core.mvc">
+	<FeedInput post="onPost" class="sapUiSmallMarginTopBottom" />
+	<List showSeparators="Inner" items="{/data}">
+		<FeedListItem sender="{name}" icon="{AuthorPicUrl}" senderPress="onSenderPress" iconPress="onIconPress" iconDensityAware="false" info="{Type}" timestamp="{posted}" text="{message}" convertLinksToAnchorTags="All"/>
 	</List>
-
 </mvc:View>

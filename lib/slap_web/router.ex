@@ -7,5 +7,7 @@ defmodule SlapWeb.Router do
 
   scope "/api", SlapWeb do
     pipe_through :api
+
+    resources "/messages", MessageController, except: [:new, :edit]
   end
 end
