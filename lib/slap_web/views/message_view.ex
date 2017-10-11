@@ -12,6 +12,7 @@ defmodule SlapWeb.MessageView do
 
   def render("message.json", %{message: message}) do
     %{id: message.id,
+      room: message.room,
       name: message.name,
       message: message.message,
       posted: message.inserted_at}

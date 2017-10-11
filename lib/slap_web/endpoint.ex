@@ -3,7 +3,7 @@ defmodule SlapWeb.Endpoint do
 
   socket "/socket", SlapWeb.UserSocket
 
-  plug Plug.Static.IndexHtml, at: "/docs"
+  # plug Plug.Static.IndexHtml, at: "/docs"
 
   # Serve at "/" the static files from "priv/static" directory.
   #

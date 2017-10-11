@@ -7,6 +7,7 @@ defmodule Slap.Messages.Message do
   schema "messages" do
     field :message, :string
     field :name, :string
+    field :room, :string
 
     timestamps()
   end
@@ -14,7 +15,7 @@ defmodule Slap.Messages.Message do
   @doc false
   def changeset(%Message{} = message, attrs) do
     message
-    |> cast(attrs, [:name, :message])
-    |> validate_required([:name, :message])
+    |> cast(attrs, [:name, :message, :room])
+    |> validate_required([:name, :message, :room])
   end
 end

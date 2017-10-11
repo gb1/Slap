@@ -22,23 +22,17 @@ sap.ui.define([
     },
 
     onPost: function (event) {
-      console.log("send");
       this.chan.push("new_msg",
         {
           body: event.getParameter("value"),
-          name: "GB"
+          name: this.getView().getModel().getData().name
         })
     },
 
     addMessageToModel: function () {
-      //  			// update model
       var oModel = this.getView().getModel();
       var aEntries = oModel.getData().EntryCollection;
       debugger;
-      // aEntries.unshift(oEntry);
-      // oModel.setData({
-      // 	EntryCollection : aEntries
-      // });
     },
 
     setUserName: function () {
@@ -48,8 +42,12 @@ sap.ui.define([
         type: "Message",
         beginButton: new sap.m.Button("OK", {
           text: "OK",
-          press: function () {
+          press: () => {
             dialog.close();
+            if (this.getView().getModel().getData().name == undefined) {
+              this.getView().getModel().getData().name = this.pickRandomName();
+            }
+
           }
         }),
         content: [
@@ -64,7 +62,7 @@ sap.ui.define([
 
     updateModel: function (payload) {
       var model = this.getView().getModel().getData();
-      model.data.push({ name: payload.name, message: payload.body });
+      model.data.unshift({ name: payload.name, message: payload.body });
       this.getView().getModel().setData(model);
     },
 
@@ -87,6 +85,24 @@ sap.ui.define([
         })
         .receive("error", resp => { console.log("Unable to join", resp) });
 
+    },
+
+    pickRandomName: function () {
+      let names = ["Ned Stark",
+        "Robert Baratheon",
+        "Jaime Lannister",
+        "Catelyn Stark",
+        "Daenerys Targaryen",
+        "Jon Snow",
+        "Robb Stark",
+        "Arya Stark",
+        "Hodor",
+        "Theon Greyjoy",
+        "Tyrion Lannister",
+        "Khal Drogo",
+        "Stannis Baratheon"]
+
+      return names[Math.floor(Math.random() * names.length)]
     }
 
   });

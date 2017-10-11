@@ -19,6 +19,7 @@ defmodule Slap.Messages do
   """
   def list_messages do
     Repo.all(Message)
+    |> Enum.reverse()
   end
 
   @doc """
