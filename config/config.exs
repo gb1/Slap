@@ -9,6 +9,13 @@ use Mix.Config
 config :slap,
   ecto_repos: [Slap.Repo]
 
+# Config for Guardian
+config :guardian, Guardian,
+  issuer: "Slap",
+  ttl: {30, :days},
+  verify_issuer: true,
+  serializer: Slap.GuardianSerializer
+
 # Configures the endpoint
 config :slap, SlapWeb.Endpoint,
   url: [host: "localhost"],

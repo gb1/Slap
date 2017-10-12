@@ -4,8 +4,8 @@ defmodule SlapWeb.UserControllerTest do
   alias Slap.Users
   alias Slap.Users.User
 
-  @create_attrs %{email: "some email", name: "some name", password_hash: "some password_hash"}
-  @update_attrs %{email: "some updated email", name: "some updated name", password_hash: "some updated password_hash"}
+  @create_attrs %{email: "some email", name: "some name", password: "some password_hash"}
+  @update_attrs %{email: "some updated email", name: "some updated name", password: "some password"}
   @invalid_attrs %{email: nil, name: nil, password_hash: nil}
 
   def fixture(:user) do
@@ -33,8 +33,7 @@ defmodule SlapWeb.UserControllerTest do
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "email" => "some email",
-        "name" => "some name",
-        "password_hash" => "some password_hash"}
+        "name" => "some name"}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
@@ -54,8 +53,7 @@ defmodule SlapWeb.UserControllerTest do
       assert json_response(conn, 200)["data"] == %{
         "id" => id,
         "email" => "some updated email",
-        "name" => "some updated name",
-        "password_hash" => "some updated password_hash"}
+        "name" => "some updated name"}
     end
 
     test "renders errors when data is invalid", %{conn: conn, user: user} do

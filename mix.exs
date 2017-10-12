@@ -40,7 +40,9 @@ defmodule Slap.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:plug_static_index_html, "~> 1.0"},
-      {:comeonin, "~> 2.5"}
+      {:comeonin, "~> 2.5"},
+      {:guardian, "~> 0.14.5"},
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}      
     ]
   end
 

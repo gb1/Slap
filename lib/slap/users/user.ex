@@ -16,18 +16,11 @@ defmodule Slap.Users.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:name, :email])
-    |> validate_required([:name, :email])
+    |> cast(attrs, [:name, :email, :password])
+    |> validate_required([:name, :email, :password])
     |> unique_constraint(:username)
-    |> unique_constraint(:email)    
-  end
-
-  def registration_changeset(struct, params) do
-    struct
-    |> changeset(params)
-    |> cast(params, [:password])
-    |> validate_length(:password, min: 6, max: 100)
-    |> put_password_hash()
+    |> unique_constraint(:email)
+    |> put_password_hash()      
   end
 
   defp put_password_hash(changeset) do

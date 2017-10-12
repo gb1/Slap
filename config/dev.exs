@@ -13,6 +13,10 @@ config :slap, SlapWeb.Endpoint,
   check_origin: false,
   watchers: []
 
+# Secret key for Guardian
+config :guardian, Guardian,
+  secret_key: "JblUh3aVxT+V1pTf8AZCuWl+MnkzYpX4Y8ZzXuEmD5siQMYS3F4xQd8o8QjY9Ink"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
