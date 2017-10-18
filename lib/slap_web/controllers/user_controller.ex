@@ -16,7 +16,7 @@ defmodule SlapWeb.UserController do
 
       new_conn
       |> put_status(:created)
-      |> render(Slap.SessionView, "show.json", user: user, jwt: jwt)
+      |> render(SlapWeb.SessionView, "show.json", user: user, jwt: jwt)
 
       # |> put_status(:created)
       # |> put_resp_header("location", user_path(conn, :show, user))

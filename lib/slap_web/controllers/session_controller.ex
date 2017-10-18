@@ -3,7 +3,6 @@ defmodule SlapWeb.SessionController do
   alias Slap.Users
 
   def create(conn, params) do
-    IO.inspect params
     case authenticate(params) do
       {:ok, user} ->
         new_conn = Guardian.Plug.api_sign_in(conn, user, :access)
@@ -48,7 +47,7 @@ defmodule SlapWeb.SessionController do
   def unauthenticated(conn, _params) do
     conn
     |> put_status(:forbidden)
-    |> render(Slap.SessionView, "forbidden.json", error: "Not Authenticated")
+    |> render(SlapWeb.SessionView, "forbidden.json", error: "Not Authenticated")
   end
 
   defp authenticate(%{"email" => email, "password" => password}) do

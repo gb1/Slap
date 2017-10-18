@@ -9,6 +9,11 @@ config :slap, SlapWeb.Endpoint,
 # Print only warnings and errors during test
 config :logger, level: :warn
 
+# Secret key for Guardian
+config :guardian, Guardian,
+  secret_key: "JblUh3aVxT+V1pTf8AZCuWl+MnkzYpX4Y8ZzXuEmD5siQMYS3F4xQd8o8QjY9Ink"
+
+
 # Configure your database
 config :slap, Slap.Repo,
   adapter: Ecto.Adapters.Postgres,

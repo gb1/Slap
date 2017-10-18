@@ -33,6 +33,19 @@ defmodule SlapWeb.Endpoint do
   at: "/libs",
   from: "priv/app/libs"
 
+  plug Plug.Static,
+  at: "/ui5",
+  from: "priv/app/ui5"
+
+
+  plug Plug.Static,
+  at: "/testservice",
+  from: "priv/app/testservice"
+
+  plug Plug.Static,
+  at: "/",
+  from: "priv/app"
+
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
