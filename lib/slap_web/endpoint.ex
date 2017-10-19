@@ -16,18 +16,21 @@ defmodule SlapWeb.Endpoint do
   plug Plug.Static.IndexHtml,
   at: "/"
 
+  plug Plug.Static.IndexHtml,
+  at: "/login"
+
   plug Plug.Static,
   at: "/",
   from: "priv/app/",
   only: ~w(index.html favicon.ico static)
 
-  plug Plug.Static,
-  at: "/view",
-  from: "priv/app/view"
+  # plug Plug.Static,
+  # at: "/view",
+  # from: "priv/app/view"
 
-  plug Plug.Static,
-  at: "/controller",
-  from: "priv/app/controller"
+  # plug Plug.Static,
+  # at: "/controller",
+  # from: "priv/app/controller"
 
   plug Plug.Static,
   at: "/libs",
@@ -37,6 +40,9 @@ defmodule SlapWeb.Endpoint do
   at: "/ui5",
   from: "priv/app/ui5"
 
+  plug Plug.Static,
+  at: "/login/ui5",
+  from: "priv/app/ui5"
 
   plug Plug.Static,
   at: "/testservice",
@@ -46,6 +52,9 @@ defmodule SlapWeb.Endpoint do
   at: "/",
   from: "priv/app"
 
+  plug Plug.Static,
+  at: "/login",
+  from: "priv/login"
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
