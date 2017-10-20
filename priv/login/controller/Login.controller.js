@@ -15,13 +15,12 @@ sap.ui.define(
         var email = this.getView().byId("loginEmail").getValue();
         var password = this.getView().byId("loginPassword").getValue();
 
-
         var jqxhr = $.post( "/api/sessions", {email: email, password: password}, function(r) {
           console.log(r);
         }, "json")
           .done(function(resp) {
             console.log(resp);
-            document.cookie = "slap_token=" + resp.meta.token;
+            sessionStorage.setItem('token', resp.meta.token);
           })
           .fail(function(a) {
             //console.log(a.responseText);
@@ -31,7 +30,27 @@ sap.ui.define(
             //alert( "finished" );
           });
 
-        //ebugger;
+      },
+
+      onSignUp: function(){
+        var name = this.getView().byId("signupName").getValue();
+        var email = this.getView().byId("signupEmail").getValue();
+        var password = this.getView().byId("signupPassword").getValue();
+debugger;
+        var jqxhr = $.post( "/api/users", { user: {email: email, name: name, password: password } }, function(r) {
+          console.log(r);
+        }, "json")
+          .done(function(resp) {
+            console.log(resp);
+            //document.cookie = "slap_token=" + resp.meta.token;
+          })
+          .fail(function(a) {
+            console.log(a.responseText);
+            alert( "error" );
+          })
+          .always(function() {
+            //alert( "finished" );
+          });        
       }
 
     });

@@ -28,7 +28,7 @@
       <Input id="signupName" placeholder="Enter your display name"/>
       <Label text="Password" labelFor="signupPassword"/>
       <Input id="signupPassword" type="Password" placeholder="Enter password"/>
-      <Button text="Login" press="btnClicked"/>
+      <Button text="Login" press="onSignUp"/>
     </content>
   </Panel>
 </mvc:View>
