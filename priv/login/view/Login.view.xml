@@ -12,7 +12,7 @@
       <Input id="loginEmail" placeholder="Enter account email address"/>
       <Label text="Password" labelFor="loginPassword"/>
       <Input id="loginPassword" type="Password" placeholder="Enter password"/>
-      <Button text="Login" press="btnClicked"/>
+      <Button text="Login" press="onLogin"/>
     </content>
   </Panel>
   <Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">

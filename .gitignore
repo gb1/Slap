@@ -17,3 +17,4 @@ erl_crash.dump
 
 #Open UI5 libs - switch to CDN to test @ https://openui5.hana.ondemand.com + resource_path
 /priv/app/ui5
+.elixir_ls
