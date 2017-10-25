@@ -11,48 +11,69 @@ sap.ui.define(
         alert("Hello World");
       },
 
-      onLogin: function(){
-        var email = this.getView().byId("loginEmail").getValue();
-        var password = this.getView().byId("loginPassword").getValue();
+      onLogin: function() {
+        var email = this.getView()
+          .byId("loginEmail")
+          .getValue();
+        var password = this.getView()
+          .byId("loginPassword")
+          .getValue();
 
-        var jqxhr = $.post( "/api/sessions", {email: email, password: password}, function(r) {
-          console.log(r);
-        }, "json")
+        var jqxhr = $.post(
+          "/api/sessions",
+          { email: email, password: password },
+          function(r) {
+            console.log(r);
+          },
+          "json"
+        )
           .done(function(resp) {
             console.log(resp);
-            sessionStorage.setItem('token', resp.meta.token);
+            sessionStorage.setItem("token", resp.meta.token);
+            window.location.href = "/";
           })
           .fail(function(a) {
             //console.log(a.responseText);
-            alert( "error" );
+            alert("error");
           })
           .always(function() {
             //alert( "finished" );
           });
-
       },
 
-      onSignUp: function(){
-        var name = this.getView().byId("signupName").getValue();
-        var email = this.getView().byId("signupEmail").getValue();
-        var password = this.getView().byId("signupPassword").getValue();
-debugger;
-        var jqxhr = $.post( "/api/users", { user: {email: email, name: name, password: password } }, function(r) {
-          console.log(r);
-        }, "json")
+      onSignUp: function() {
+        var name = this.getView()
+          .byId("signupName")
+          .getValue();
+        var email = this.getView()
+          .byId("signupEmail")
+          .getValue();
+        var password = this.getView()
+          .byId("signupPassword")
+          .getValue();
+
+        var jqxhr = $.post(
+          "/api/users",
+          { user: { email: email, name: name, password: password } },
+          function(r) {
+            console.log(r);
+          },
+          "json"
+        )
           .done(function(resp) {
             console.log(resp);
+            sessionStorage.setItem("token", resp.meta.token);
+            window.location.href = "/";
             //document.cookie = "slap_token=" + resp.meta.token;
           })
           .fail(function(a) {
             console.log(a.responseText);
-            alert( "error" );
+            alert(a.responseText);
           })
           .always(function() {
             //alert( "finished" );
-          });        
+          });
       }
-
     });
   }
 );

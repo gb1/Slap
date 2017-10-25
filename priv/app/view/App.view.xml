@@ -4,6 +4,9 @@
   <SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master" orientationChange="onOrientationChange">
     <masterPages>
       <Page id="master" title="Master 1" icon="sap-icon://action" class="sapUiStdPage">
+      		<headerContent>
+			<Button icon="sap-icon://action" tooltip="Logout" text="Logout" press="logout"/>
+		</headerContent>
         <content>
           <List headerText="rooms" items="{path: 'messages>/data'}">
             <StandardListItem title="{messages>room}" type="Navigation" press="onPressGoToMaster"/>

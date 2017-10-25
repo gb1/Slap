@@ -18,8 +18,7 @@ defmodule Slap.Users.User do
     user
     |> cast(attrs, [:name, :email, :password])
     |> validate_required([:name, :email, :password])
-    |> unique_constraint(:username)
-    |> unique_constraint(:email)
+    |> unique_constraint(:username_email, name: :users_name_email_index)
     |> put_password_hash()      
   end
 

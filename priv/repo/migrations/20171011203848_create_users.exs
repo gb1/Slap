@@ -10,7 +10,6 @@ defmodule Slap.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
-    create unique_index(:users, [:name])
-    create unique_index(:users, [:email])
+    create unique_index(:users, [:name, :email])
   end
 end

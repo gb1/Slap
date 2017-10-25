@@ -7,4 +7,8 @@ defmodule SlapWeb.UserView do
       name: user.name,
       email: user.email}
   end
+
+  def render("error.json", _) do
+    %{error: "Error registering user"}
+  end
 end

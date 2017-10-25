@@ -5,6 +5,11 @@ sap.ui.define(
 
     return Controller.extend("slap.ui.controller.App", {
       onInit: function() {
+        const token = sessionStorage.getItem("token");
+        if (token == null) {
+          window.location.href = "/login/";
+        }
+
         let rooms = {
           data: [
             {
@@ -37,6 +42,11 @@ sap.ui.define(
       onShowHello: function() {
         // show a native JavaScript alert
         alert("Hello World");
+      },
+
+      logout: function() {
+        sessionStorage.clear();
+        window.location.href = "/login/";
       }
     });
   }
