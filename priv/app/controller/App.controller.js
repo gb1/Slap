@@ -142,6 +142,16 @@ sap.ui.define(
           token: sessionStorage.getItem("token"),
           room: "ABAP"
         });
+      },
+
+      updateModel: function(payload) {
+        var model = this.getView()
+          .getModel("messages")
+          .getData();
+        model.data.unshift(payload);
+        this.getView()
+          .getModel("messages")
+          .setData(model);
       }
     });
   }

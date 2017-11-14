@@ -19,19 +19,16 @@ defmodule SlapWeb.RoomChannel do
     {:ok, sub} = Guardian.decode_and_verify(token)
     {:ok, user} = Slap.GuardianSerializer.from_token(sub["sub"])
     
-    Messages.create_message(%{room: room, name: user.name, email: user.email, message: body})
+    {:ok, message} = Messages.create_message(%{room: room, name: user.name, email: user.email, message: body})
+
+    broadcast! socket, "new_msg", 
+    %{room: room, name: user.name, email: user.email, message: body,
+      gravatar: Gravatar.new(message.email) |> to_string,
+      posted: Timex.format!(message.inserted_at, "{ANSIC}") }
 
     {:noreply, socket}
 
   end
-
-  # def handle_in("new_msg", %{"body" => body, "name" => name}, socket) do
-  #   broadcast! socket, "new_msg", %{body: body, name: name}
-
-  #   Messages.create_message(%{:name => name, :message => body})
-
-  #   {:noreply, socket}
-  # end
 
   def handle_out("new_msg", payload, socket) do
     push socket, "new_msg", payload
