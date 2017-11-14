@@ -4,6 +4,8 @@ defmodule SlapWeb.MessageController do
   alias Slap.Messages
   alias Slap.Messages.Message
 
+  plug Guardian.Plug.EnsureAuthenticated, handler: SlapWeb.SessionController
+  
   action_fallback SlapWeb.FallbackController
 
   def index(conn, _params) do

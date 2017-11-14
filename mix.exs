@@ -42,7 +42,9 @@ defmodule Slap.Mixfile do
       {:plug_static_index_html, "~> 1.0"},
       {:comeonin, "~> 2.5"},
       {:guardian, "~> 0.14.5"},
-      {:credo, "~> 0.8", only: [:dev, :test], runtime: false}      
+      {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
+      {:timex, "~> 3.1"},
+      {:gravatar, "~> 0.1.0"}      
     ]
   end
 

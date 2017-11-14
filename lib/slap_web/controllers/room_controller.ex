@@ -1,6 +1,5 @@
 defmodule SlapWeb.RoomController do
   use SlapWeb, :controller
-
   alias Slap.Rooms
   alias Slap.Rooms.Room
 

@@ -1,14 +1,17 @@
 defmodule SlapWeb.SessionController do
   use SlapWeb, :controller
   alias Slap.Users
+  require IEx
 
   def create(conn, params) do
     case authenticate(params) do
       {:ok, user} ->
-        new_conn = Guardian.Plug.api_sign_in(conn, user, :access)
-        jwt = Guardian.Plug.current_token(new_conn)
 
-        new_conn
+        conn = Guardian.Plug.api_sign_in(conn, user, :access)
+
+        jwt = Guardian.Plug.current_token(conn)
+
+        conn
         |> put_status(:created)
         |> render("show.json", user: user, jwt: jwt)
       :error ->
@@ -51,7 +54,7 @@ defmodule SlapWeb.SessionController do
   end
 
   defp authenticate(%{"email" => email, "password" => password}) do
-    # user = Repo.get_by(Slap.User, email: String.downcase(email))
+
     user = Users.get_user_by_email!(email)
 
     case check_password(user, password) do

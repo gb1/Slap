@@ -4,6 +4,7 @@ defmodule Slap.Repo.Migrations.CreateMessages do
   def change do
     create table(:messages) do
       add :name, :string
+      add :email, :string
       add :message, :string
       add :room, :string
 

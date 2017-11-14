@@ -14,6 +14,7 @@ defmodule SlapWeb.Router do
     resources "/messages", MessageController, except: [:new, :edit]
     resources "/rooms", RoomController, only: [:index]
     resources "/users", UserController, only: [:create]
+    resources "/rooms/:room/messages", RoomMessagesController, only: [:index]
 
     resources "/sessions", SessionController, only: [:create]
     # delete "/sessions", SessionController, :delete

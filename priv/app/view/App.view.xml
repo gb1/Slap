@@ -1,28 +1,26 @@
-<mvc:View controllerName="slap.ui.controller.App" 
-  xmlns="sap.m" 
-  xmlns:mvc="sap.ui.core.mvc">
-  <SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master" orientationChange="onOrientationChange">
-    <masterPages>
-      <Page id="master" title="Master 1" icon="sap-icon://action" class="sapUiStdPage">
-      		<headerContent>
-			<Button icon="sap-icon://action" tooltip="Logout" text="Logout" press="logout"/>
-		</headerContent>
-        <content>
-          <List headerText="rooms" items="{path: 'messages>/data'}">
-            <StandardListItem title="{messages>room}" type="Navigation" press="onPressGoToMaster"/>
-          </List>
-        </content>
-      </Page>
-    </masterPages>
-    <detailPages>
-      <Page id="detail" title="Detail 1" class="sapUiStdPage">
-        <content>
-          <FeedInput post="onPost" class="sapUiSmallMarginTopBottom" />
-          <List showSeparators="Inner" items="{path: 'messages>/data'}">
-            <FeedListItem sender="{messages>name}" timestamp="{messages>posted}" text="{messages>message}" convertLinksToAnchorTags="All"/>
-          </List>
-        </content>
-      </Page>
-    </detailPages>
-  </SplitApp>
-</mvc:View>
+<View controllerName="slap.ui.controller.App" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master" orientationChange="onOrientationChange">
+		<masterPages>
+			<Page id="master" title="SLAP" icon="sap-icon://action" class="sapUiStdPage">
+				<headerContent>
+					<Button icon="sap-icon://action" tooltip="Logout" text="Logout" press="logout" />
+				</headerContent>
+				<content>
+					<List headerText="rooms" items="{path: 'rooms>/data'}">
+						<StandardListItem title="{rooms>room}" type="Navigation" press="changeRoom" />
+					</List>
+				</content>
+			</Page>
+		</masterPages>
+		<detailPages>
+			<Page id="detail" title="" class="sapUiStdPage">
+				<content>
+					<FeedInput id="feedInput" post="onPost" class="sapUiSmallMarginTopBottom" />
+					<List showSeparators="Inner" items="{path: 'messages>/data'}">
+						<FeedListItem sender="{messages>name}" icon="{messages>gravatar}" timestamp="{messages>posted}" text="{messages>message}" convertLinksToAnchorTags="All" />
+					</List>
+				</content>
+			</Page>
+		</detailPages>
+	</SplitApp>
+</View>

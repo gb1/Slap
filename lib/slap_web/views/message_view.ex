@@ -10,7 +10,7 @@ defmodule SlapWeb.MessageView do
     %{data: render_one(message, MessageView, "message.json")}
   end
 
-  def render("message.json", %{message: message}) do
+  def render("message.json", %{messages: message}) do
     %{id: message.id,
       room: message.room,
       name: message.name,

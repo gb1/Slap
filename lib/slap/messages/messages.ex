@@ -22,6 +22,15 @@ defmodule Slap.Messages do
     |> Enum.reverse()
   end
 
+  def get_room_messages(room) do
+
+    Repo.all(from m in Message, limit: 20, order_by: [desc: m.inserted_at],
+     where: m.room == ^room,
+     select: %Message{ room: m.room, name: m.name, message: m.message, 
+      email: m.email, inserted_at: m.inserted_at, id: m.id})
+
+  end
+
   @doc """
   Gets a single message.
 
