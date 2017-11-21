@@ -16,5 +16,6 @@ defmodule Slap.Rooms.Room do
     room
     |> cast(attrs, [:room, :description])
     |> validate_required([:room, :description])
+    |> unique_constraint(:room_index, name: :rooms_room_index)
   end
 end

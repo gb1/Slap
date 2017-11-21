@@ -1,14 +1,17 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel"],
-  function(Controller, JSONModel) {
+  [
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/json/JSONModel",
+    "sap/m/MessageToast"
+  ],
+  function(Controller, JSONModel, MessageToast) {
     "use strict";
 
     return Controller.extend("slap.ui.controller.Login", {
-      onInit: function() {},
-
-      onShowHello: function() {
-        // show a native JavaScript alert
-        alert("Hello World");
+      onInit: function() {
+        this.getView().addStyleClass(
+          this.getOwnerComponent().getContentDensityClass()
+        );
       },
 
       onLogin: function() {
@@ -30,11 +33,12 @@ sap.ui.define(
           .done(function(resp) {
             console.log(resp);
             sessionStorage.setItem("token", resp.meta.token);
+            sessionStorage.setItem("email", resp.data.email);
             window.location.href = "/";
           })
           .fail(function(a) {
             //console.log(a.responseText);
-            alert("error");
+            MessageToast.show(a.responseJSON.error);
           })
           .always(function() {
             //alert( "finished" );
@@ -63,12 +67,11 @@ sap.ui.define(
           .done(function(resp) {
             console.log(resp);
             sessionStorage.setItem("token", resp.meta.token);
+            sessionStorage.setItem("email", resp.data.email);
             window.location.href = "/";
-            //document.cookie = "slap_token=" + resp.meta.token;
           })
           .fail(function(a) {
-            console.log(a.responseText);
-            alert(a.responseText);
+            MessageToast.show(a.responseJSON.error);
           })
           .always(function() {
             //alert( "finished" );

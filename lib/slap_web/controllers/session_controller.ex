@@ -55,7 +55,7 @@ defmodule SlapWeb.SessionController do
 
   defp authenticate(%{"email" => email, "password" => password}) do
 
-    user = Users.get_user_by_email!(email)
+    user = Users.get_user_by_email!(String.downcase(email))
 
     case check_password(user, password) do
       true -> {:ok, user}

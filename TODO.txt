@@ -1,0 +1,5 @@
+-add ability to add new rooms
+-remove hardcoded ABAP room when posting msg
+-Add current room to JSON model and dispaly in action bar
+-make the split app work on mobile
+-add proper error msg to login screen

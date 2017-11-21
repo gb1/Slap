@@ -1,34 +1,43 @@
-<mvc:View controllerName="slap.ui.controller.Login" 
-  xmlns="sap.m" 
-  xmlns:mvc="sap.ui.core.mvc">
-  <Panel width="50%" class="sapUiResponsiveMargin" accessibleRole="Region">
-    <headerToolbar>
-      <Toolbar height="3rem">
-        <Title text="Log In"/>
-      </Toolbar>
-    </headerToolbar>
-    <content>
-      <Label text="Email" labelFor="loginEmail"/>
-      <Input id="loginEmail" placeholder="Enter account email address"/>
-      <Label text="Password" labelFor="loginPassword"/>
-      <Input id="loginPassword" type="Password" placeholder="Enter password"/>
-      <Button text="Login" press="onLogin"/>
-    </content>
-  </Panel>
-  <Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
-    <headerToolbar>
-      <Toolbar height="3rem">
-        <Title text="Sign Up"/>
-      </Toolbar>
-    </headerToolbar>
-    <content>
-      <Label text="Email" labelFor="signupEmail"/>
-      <Input id="signupEmail" placeholder="Enter email address"/>
-      <Label text="Display Name" labelFor="signupName"/>
-      <Input id="signupName" placeholder="Enter your display name"/>
-      <Label text="Password" labelFor="signupPassword"/>
-      <Input id="signupPassword" type="Password" placeholder="Enter password"/>
-      <Button text="Login" press="onSignUp"/>
-    </content>
-  </Panel>
-</mvc:View>
+<View controllerName="slap.ui.controller.Login" xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc">
+	<Shell title="SLAP">
+		<App title="SLAP">
+			<Panel>
+				<Image src="slap.png" densityAware="false">
+					<layoutData>
+						<FlexItemData growFactor="1" />
+					</layoutData>
+				</Image>
+				<Panel expandable="true" expanded="true" width="85%" class="sapUiResponsiveMargin" accessibleRole="Region">
+					<headerToolbar>
+						<Toolbar height="3rem">
+							<Title text="Log In" />
+						</Toolbar>
+					</headerToolbar>
+					<content>
+						<Label text="Email" labelFor="loginEmail" />
+						<Input id="loginEmail" placeholder="Enter account email address" />
+						<Label text="Password" labelFor="loginPassword" />
+						<Input id="loginPassword" type="Password" placeholder="Enter password" />
+						<Button text="Login" press="onLogin" />
+					</content>
+				</Panel>
+				<Panel width="85%" expandable="true" expanded="false" class="sapUiResponsiveMargin" accessibleRole="Region">
+					<headerToolbar>
+						<Toolbar height="3rem">
+							<Title text="Sign Up" />
+						</Toolbar>
+					</headerToolbar>
+					<content>
+						<Label text="Email" labelFor="signupEmail" />
+						<Input id="signupEmail" placeholder="Enter email address" />
+						<Label text="Display Name" labelFor="signupName" />
+						<Input id="signupName" placeholder="Enter your display name" />
+						<Label text="Password" labelFor="signupPassword" />
+						<Input id="signupPassword" type="Password" placeholder="Enter password" />
+						<Button text="Login" press="onSignUp" />
+					</content>
+				</Panel>
+			</Panel>
+		</App>
+	</Shell>
+</View>

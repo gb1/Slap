@@ -9,56 +9,33 @@ sap.ui.define(
     "use strict";
 
     return Controller.extend("slap.ui.controller.App", {
-      chan: {},
+      channel: {},
+      socket: {},
+      token: sessionStorage.getItem("token"),
 
       onInit: function() {
         this.getView().addStyleClass(
           this.getOwnerComponent().getContentDensityClass()
         );
 
-        this.getView().byId("feedInput").onkeyup = function() {
-          MessageToast.show("GB is typing...", { duration: 100 });
-          console.log("someone is typing!");
-        };
-
-        const token = sessionStorage.getItem("token");
-        if (token == null) {
+        if (this.token == null) {
           window.location.href = "/login/";
         }
 
-        // let rooms = {
-        //   data: [
-        //     {
-        //       room: "ABAP",
-        //       id: 1,
-        //       description: "everyones favorite language!"
-        //     }
-        //   ]
-        // };
+        this.setupModels();
+        this.setupSocket();
+        this.joinChannel("general");
+      },
 
-        // let messages = {
-        //   data: [
-        //     {
-        //       room: "ABAP",
-        //       posted: "2017-10-18T18:44:05.042576",
-        //       name: "jesse",
-        //       message: "hola",
-        //       id: 1
-        //     }
-        //   ]
-        // };
+      setupModels: function() {
+        //set current room
+        this.getView().setModel(
+          new JSONModel({ currentRoom: "general" }),
+          "state"
+        );
 
+        //set list of rooms
         let roomsModel = new JSONModel();
-
-        // roomsModel.attachRequestCompleted(function(response) {
-        //   // console.log(response);
-        //   data = response.getSource().getData();
-        //   roomsModel.setData(data);
-        // });
-        // roomsModel.attachRequestFailed(function(response) {
-        //   console.log("Failed!" + response);
-        // });
-
         roomsModel.loadData(
           "/api/rooms",
           {},
@@ -70,19 +47,11 @@ sap.ui.define(
         );
 
         this.getView().setModel(roomsModel, "rooms");
-        // this.getMessages("");
-
-        this.setupSocket();
-      },
-
-      onShowHello: function() {
-        // show a native JavaScript alert
-        alert("Hello World");
+        this.getMessages(this.currentRoom());
       },
 
       getMessages: function(room) {
         let messagesModel = new JSONModel();
-
         messagesModel.loadData(
           "/api/rooms/" + room + "/messages",
           {},
@@ -98,8 +67,7 @@ sap.ui.define(
 
       getAuthHeader: function() {
         return {
-          Authorization:
-            "Bearer: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjE2IiwiZXhwIjoxNTEwODIxNjY5LCJpYXQiOjE1MDgyMjk2NjksImlzcyI6IlNsYXAiLCJqdGkiOiI0YmU5YzllNC05NmYxLTQyMTAtOGQzNC03YjUxYWRmZmQ3MTIiLCJwZW0iOnt9LCJzdWIiOiJVc2VyOjE2IiwidHlwIjoiYWNjZXNzIn0.vO81KcOV3zRDHbTlSYhatwNhijuuKeuXh-4Pxk888PlJq5P4FE_r6MTESMQsLDJo_FTYqBv5S4TAZoeWtW5W3Q"
+          Authorization: "Bearer: " + this.token
         };
       },
 
@@ -109,38 +77,63 @@ sap.ui.define(
       },
 
       changeRoom: function(event) {
-        this.getMessages(event.getSource().getTitle());
+        var newRoom = event
+          .getSource()
+          .getTitle()
+          .slice(1);
+        this.leaveChannel(this.currentRoom());
+        this.getMessages(newRoom);
+        this.getView()
+          .getModel("state")
+          .setData({ currentRoom: newRoom });
+
+        this.joinChannel(newRoom);
+
+        this.byId("app").toDetail(this.createId("room"));
       },
 
-      setupSocket: function() {
-        var socket = new Phoenix.Socket("/socket", { params: {} });
-        socket.connect();
+      onPressBack: function() {
+        this.byId("app").backMaster();
+      },
 
-        let channel = socket.channel("room:ABAP", {});
+      currentRoom: function() {
+        return this.getView()
+          .getModel("state")
+          .getData().currentRoom;
+      },
 
-        this.chan = channel;
+      joinChannel: function(channel) {
+        this.channel = this.socket.channel("room:" + this.currentRoom(), {});
 
-        channel.on("new_msg", payload => {
-          console.log(payload);
+        this.channel.on("new_msg", payload => {
           this.updateModel(payload);
         });
 
-        channel
+        this.channel
           .join()
           .receive("ok", resp => {
-            console.log("Joined successfully", resp);
+            MessageToast.show("Joined " + this.currentRoom());
           })
           .receive("error", resp => {
-            console.log("Unable to join", resp);
+            "Joined " + this.currentRoom("Error joining " + this.currentRoom());
+            console.error("Unable to join", resp);
           });
       },
 
+      leaveChannel: function(channel) {
+        this.channel.leave();
+      },
+
+      setupSocket: function() {
+        this.socket = new Phoenix.Socket("/socket", { params: {} });
+        this.socket.connect();
+      },
+
       onPost: function(event) {
-        console.log("send");
-        this.chan.push("new_msg", {
+        this.channel.push("new_msg", {
           body: event.getParameter("value"),
           token: sessionStorage.getItem("token"),
-          room: "ABAP"
+          room: this.currentRoom()
         });
       },
 
@@ -152,7 +145,9 @@ sap.ui.define(
         this.getView()
           .getModel("messages")
           .setData(model);
-      }
+      },
+
+      newRoom: function() {}
     });
   }
 );

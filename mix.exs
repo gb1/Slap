@@ -44,7 +44,8 @@ defmodule Slap.Mixfile do
       {:guardian, "~> 0.14.5"},
       {:credo, "~> 0.8", only: [:dev, :test], runtime: false},
       {:timex, "~> 3.1"},
-      {:gravatar, "~> 0.1.0"}      
+      {:gravatar, "~> 0.1.0"},
+      {:distillery, "~> 1.5", runtime: false}      
     ]
   end
 

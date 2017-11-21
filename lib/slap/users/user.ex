@@ -19,7 +19,12 @@ defmodule Slap.Users.User do
     |> cast(attrs, [:name, :email, :password])
     |> validate_required([:name, :email, :password])
     |> unique_constraint(:username_email, name: :users_name_email_index)
+    |> downcase_value
     |> put_password_hash()      
+  end
+
+  def downcase_value(changeset) do
+    update_change(changeset, :email, &String.downcase/1)
   end
 
   defp put_password_hash(changeset) do

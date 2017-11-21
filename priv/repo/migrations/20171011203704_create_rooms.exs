@@ -9,5 +9,7 @@ defmodule Slap.Repo.Migrations.CreateRooms do
       timestamps()
     end
 
+    create unique_index(:rooms, [:room])
+
   end
 end

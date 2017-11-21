@@ -19,8 +19,9 @@ defmodule SlapWeb.UserController do
         new_conn
         |> put_status(:created)
         |> render(SlapWeb.SessionView, "show.json", user: user, jwt: jwt)
-      {:error, error }->
+      {:error, error } ->
         conn
+        |> put_status(:im_a_teapot)
         |> render("error.json")  
     end
 
