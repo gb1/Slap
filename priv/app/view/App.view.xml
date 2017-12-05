@@ -13,6 +13,15 @@
 						</List>
 					</content>
 				</Page>
+				<Page id="roomMaster" title="Room" class="sapUiStdPage" showNavButton="true" navButtonPress="backToRooms">
+					<content>
+						<!--
+						<List headerText="rooms" items="{path: 'rooms>/data'}">
+						<StandardListItem title="#{rooms>room}" description="{rooms>description}" type="Navigation" press="changeRoom" />
+						</List>
+						-->
+					</content>
+				</Page>
 			</masterPages>
 			<detailPages>
 				<Page id="room" title="#{path: 'state>/currentRoom'}" showNavButton="true" navButtonPress="onPressBack" class="sapUiStdPage">

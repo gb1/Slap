@@ -77,6 +77,8 @@ sap.ui.define(
       },
 
       changeRoom: function(event) {
+        // this.byId("app").toMaster(this.createId("roomMaster"));
+
         var newRoom = event
           .getSource()
           .getTitle()
@@ -90,6 +92,10 @@ sap.ui.define(
         this.joinChannel(newRoom);
 
         this.byId("app").toDetail(this.createId("room"));
+      },
+
+      backToRooms: function() {
+        this.byId("app").backMaster();
       },
 
       onPressBack: function() {
@@ -125,7 +131,9 @@ sap.ui.define(
       },
 
       setupSocket: function() {
-        this.socket = new Phoenix.Socket("/socket", { params: {} });
+        this.socket = new Phoenix.Socket("/socket", {
+          params: { token: this.token }
+        });
         this.socket.connect();
       },
 

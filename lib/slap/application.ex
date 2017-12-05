@@ -12,6 +12,7 @@ defmodule Slap.Application do
       supervisor(Slap.Repo, []),
       # Start the endpoint when the application starts
       supervisor(SlapWeb.Endpoint, []),
+      supervisor(SlapWeb.Presence, []),
       # Start your own worker by calling: Slap.Worker.start_link(arg1, arg2, arg3)
       # worker(Slap.Worker, [arg1, arg2, arg3]),
     ]
